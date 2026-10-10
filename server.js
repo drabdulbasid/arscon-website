@@ -749,7 +749,8 @@ function createServer({ environment = process.env, catalog = DEFAULT_CATALOG, ta
   return server;
 }
 
-if (require.main === module) {
+// Hosting wrappers load this file with require(), so production must also listen.
+if (require.main === module || process.env.NODE_ENV === 'production') {
   createServer().listen(PORT, '::', () => {
     console.log(`ARSCON website listening on port ${PORT}.`);
   });
