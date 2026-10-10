@@ -59,3 +59,5 @@ ARSCON must confirm before launch:
 - Social media: the PDF lists no handles. Add HTTPS URLs to `social` in `src/business-config.json`; icons appear only for filled entries.
 - Catalogue entries (`src/catalog.json`) were transcribed from the PDF. Verify standards and sizes for gate, ball, butterfly and check valves; other entries carry no specifications.
 - Unclear PDF text not published: knife edge gate connection wording; forged steel pressure rating (cut off after 1500#).
+
+**Update 2026-10-10:** the owner states ARSCON is based in Dubai; the catalogue warehouse address is in Sharjah. Site copy says Dubai (business) with the Sharjah warehouse address shown as the contact address. Social icons show as inactive until URLs are added to social in src/business-config.json.

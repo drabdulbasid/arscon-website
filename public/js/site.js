@@ -114,12 +114,12 @@ function renderFooter() {
   footer.innerHTML = `
     <div class="container">
       <div class="footer-grid">
-        <div class="footer-brand">${brandMarkup()}<p>Industrial valves and flow-control products from Sharjah, UAE.</p><address class="footer-contact" data-footer-contact></address><ul class="social-list" data-footer-social hidden></ul></div>
+        <div class="footer-brand">${brandMarkup()}<p>Industrial valves and flow-control products from Dubai, UAE.</p><address class="footer-contact" data-footer-contact></address><ul class="social-list" data-footer-social hidden></ul></div>
         <div class="footer-col"><h2>Explore</h2><div class="footer-links"><a href="/products.html">Product catalogue</a><a href="/industries.html">Applications</a><a href="/solutions.html">Solutions</a><a href="/resources.html">Technical resources</a></div></div>
         <div class="footer-col"><h2>ARSCON</h2><div class="footer-links"><a href="/about.html">About the business</a><a href="/contact.html">Contact</a><a href="/quote.html">Request a quotation</a><a href="/assistant.html">Valve assistant</a></div></div>
         <div class="footer-col"><h2>Information</h2><div class="footer-links"><a href="/privacy.html">Privacy notice</a><a href="/cookies.html">Cookie details</a><button class="cookie-toggle" type="button" data-cookie-settings>Cookie preferences</button><a href="https://github.com/drabdulbasid/arscon-website" target="_blank" rel="noopener noreferrer">GitHub project ${iconArrow}</a></div></div>
       </div>
-      <div class="footer-bottom"><span>© <span data-year></span> ARSCON Valves Co. L.L.C · Sharjah, United Arab Emirates</span><span>Product specifications, pricing and availability require written confirmation.</span></div>
+      <div class="footer-bottom"><span>© <span data-year></span> ARSCON Valves Co. L.L.C · Dubai, United Arab Emirates</span><span>Product specifications, pricing and availability require written confirmation.</span></div>
     </div>`;
   footer.insertAdjacentHTML('beforeend', `
     <div class="cookie-banner" data-cookie-banner hidden role="region" aria-label="Cookie preferences">
@@ -706,10 +706,28 @@ initRfqForm();
 initAssistant();
 initCookies();
 
+const SOCIAL_ICONS = {
+  linkedin: '<rect x="3" y="9" width="4" height="12"/><circle cx="5" cy="5" r="2.2"/><path d="M10 9h3.8v1.8c.7-1.2 2-2 3.8-2 3.2 0 4.4 2 4.4 5.2V21h-4v-6.2c0-1.5-.5-2.4-1.800-2.400-1.400 0-2.200 1-2.200 2.600V21h-4z"/>',
+  facebook: '<path d="M14 8.500V6.800c0-.8.200-1.300 1.400-1.300H17V2.200C16.700 2.100 15.800 2 14.800 2 12.500 2 11 3.400 11 6v2.500H8.500V12H11v10h3V12h2.600l.4-3.500z"/>',
+  instagram: '<rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.200" cy="6.800" r="1.200"/>',
+  x: '<path d="M4 4l16 16M20 4L4 20" fill="none" stroke="currentColor" stroke-width="2.400" stroke-linecap="round"/>',
+  youtube: '<rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="#fff" class="icon-cut"/>',
+  whatsapp: '<path d="M12 3a9 9 0 0 0-7.800 13.500L3 21l4.700-1.200A9 9 0 1 0 12 3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8c-.5 1-.3 2.200 1 3.800s2.700 2.400 4 2.400c.8 0 1.300-.6 1.300-1.200l-1.800-.9-.8.700c-.8-.3-1.800-1.200-2.200-2l.6-.8z"/>'
+};
+
 function socialIcon(name) {
-  return escapeHtml(name.slice(0, 2).toUpperCase());
+  const body = SOCIAL_ICONS[String(name).toLowerCase()];
+  return body
+    ? `<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true" focusable="false">${body}</svg>`
+    : escapeHtml(String(name).slice(0, 2).toUpperCase());
 }
 
+function socialItem(item) {
+  const name = escapeHtml(item.platform);
+  return item.url
+    ? `<li><a class="social-link" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" aria-label="ARSCON on ${name}">${socialIcon(item.platform)}</a></li>`
+    : `<li><span class="social-link is-pending" role="img" aria-label="${name}: link coming soon" title="${name}: link coming soon">${socialIcon(item.platform)}</span></li>`;
+}
 async function loadContactDetails() {
   let site;
   try {
@@ -731,7 +749,7 @@ async function loadContactDetails() {
   if (footerContact) footerContact.innerHTML = list;
   const card = document.querySelector('[data-contact-details]');
   if (card) card.innerHTML = `<h3>${escapeHtml(site.legalName || site.name)}</h3>${site.legalNameArabic ? `<p lang="ar" dir="rtl">${escapeHtml(site.legalNameArabic)}</p>` : ''}${list}`;
-  const links = (site.social || []).map((item) => `<li><a class="social-link" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" aria-label="ARSCON on ${escapeHtml(item.platform)}">${socialIcon(item.platform)}<span class="visually-hidden">${escapeHtml(item.platform)}</span></a></li>`).join('');
+  const links = (site.social || []).map(socialItem).join('');
   document.querySelectorAll('[data-footer-social], [data-social-list]').forEach((el) => { el.innerHTML = links; el.hidden = !links; });
   const block = document.querySelector('[data-social-block]');
   if (block) block.hidden = !links;

@@ -231,16 +231,16 @@ function validateRequirements(data) {
 
 function getSocialLinks() {
   return (Array.isArray(BUSINESS_CONFIG.social) ? BUSINESS_CONFIG.social : []).flatMap((item) => {
-    if (!item || typeof item.platform !== 'string' || typeof item.url !== 'string') return [];
+    if (!item || typeof item.platform !== 'string') return [];
+    const platform = item.platform.slice(0, 40);
     try {
       const url = new URL(item.url);
-      return url.protocol === 'https:' ? [{ platform: item.platform.slice(0, 40), url: url.href }] : [];
+      return [{ platform, url: url.protocol === 'https:' ? url.href : null }];
     } catch {
-      return [];
+      return [{ platform, url: null }];
     }
   });
 }
-
 function getVerifiedProducts(catalog) {
   if (!Array.isArray(catalog.products)) return [];
   return catalog.products.flatMap((product) => {

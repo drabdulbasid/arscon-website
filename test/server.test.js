@@ -529,7 +529,7 @@ test('exposes verified contact details and only https social links', async () =>
     assert.equal(site.phone, '+971 56 994 1333');
     assert.match(site.address, /Sharjah/);
     assert.ok(Array.isArray(site.social));
-    for (const item of site.social) assert.match(item.url, /^https:\/\//);
+    for (const item of site.social) assert.ok(item.url === null || /^https:\/\//.test(item.url));
   });
 });
 

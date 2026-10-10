@@ -404,3 +404,8 @@ h3 { font-size: 19px; line-height: 1.25; }
 .social-list[hidden], .social-block[hidden] { display: none; }
 .social-link { display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; border: 1px solid currentColor; font-size: 12px; font-weight: 700; text-decoration: none; color: inherit; transition: background .2s, color .2s; }
 .social-link:hover, .social-link:focus-visible { background: #fff; color: #0b2239; }
+
+.social-link svg { display: block; }
+.social-link.is-pending { opacity: .45; cursor: default; border-style: dashed; }
+.social-link.is-pending:hover { background: transparent; color: inherit; }
+.social-link .icon-cut { fill: #0b2239; }

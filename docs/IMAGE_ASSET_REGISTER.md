@@ -33,3 +33,5 @@ Files in `public/images/products/*.webp` (24 images: gate-valve, globe-valve, ba
 - Source: ARSCON Product Catalogue PDF supplied by the owner.
 - Licence/permission: **to be confirmed** (some look like manufacturer or stock images). Labelled "catalogue photo; actual product may vary".
 - The earlier SVG illustrations in `public/images/categories/` remain but are no longer used for categories.
+
+**Update 2026-10-10:** the owner confirmed in writing (chat) that ARSCON is permitted to use the catalogue photos on the website. Original source documentation from suppliers is still advisable.
