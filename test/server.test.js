@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 const assert = require('node:assert/strict');
 const test = require('node:test');
@@ -85,8 +85,8 @@ async function withServer(options, action) {
 test('serves every published page with semantic content and browser security headers', async () => {
   await withServer({}, async (baseUrl) => {
     for (const pathname of [
-      '/', '/products.html', '/product.html', '/industries.html', '/solutions.html',
-      '/resources.html', '/about.html', '/assistant.html', '/quote.html',
+      '/', '/products.html', '/product.html', '/category.html', '/industries.html', '/solutions.html',
+      '/resources.html', '/about.html', '/contact.html', '/assistant.html', '/quote.html',
       '/privacy.html', '/cookies.html'
     ]) {
       const response = await fetch(`${baseUrl}${pathname}`);
@@ -170,7 +170,7 @@ test('filters and sorts published product data on the server', async () => {
 });
 
 test('the preliminary assistant identifies unanswered fields without verified products', async () => {
-  await withServer({}, async (baseUrl) => {
+  await withServer({ catalog: { products: [] } }, async (baseUrl) => {
     const response = await fetch(`${baseUrl}/api/assistant/select`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -483,7 +483,7 @@ test('rejects credentials and unsafe fragments in configured external AI and RFQ
 });
 
 test('generates crawl instructions and a published-domain sitemap only after HTTPS is configured', async () => {
-  await withServer({}, async (baseUrl) => {
+  await withServer({ catalog: { products: [] } }, async (baseUrl) => {
     const robots = await (await fetch(`${baseUrl}/robots.txt`)).text();
     assert.match(robots, /Disallow: \//);
     assert.doesNotMatch(robots, /Sitemap:/);
@@ -492,7 +492,7 @@ test('generates crawl instructions and a published-domain sitemap only after HTT
     assert.doesNotMatch(sitemap, /<url>/);
   });
 
-  await withServer({ environment: { PUBLIC_SITE_URL: 'https://arscon.example/' } }, async (baseUrl) => {
+  await withServer({ catalog: { products: [] }, environment: { PUBLIC_SITE_URL: 'https://arscon.example/' } }, async (baseUrl) => {
     const robots = await (await fetch(`${baseUrl}/robots.txt`)).text();
     assert.match(robots, /Sitemap: https:\/\/arscon\.example\/sitemap\.xml/);
     const sitemap = await (await fetch(`${baseUrl}/sitemap.xml`)).text();
@@ -504,5 +504,44 @@ test('generates crawl instructions and a published-domain sitemap only after HTT
     const sitemap = await (await fetch(`${baseUrl}/sitemap.xml`)).text();
     assert.match(sitemap, /https:\/\/arscon\.example\/product\.html\?id=verified-gate-01/);
     assert.doesNotMatch(sitemap, /\/shop\/product\.html/);
+  });
+});
+
+test('publishes catalogue categories with served images', async () => {
+  await withServer({}, async (baseUrl) => {
+    const payload = await (await fetch(`${baseUrl}/api/categories`)).json();
+    assert.equal(payload.categories.length, 18);
+    assert.match(payload.notice, /ARSCON Product Catalogue/);
+    for (const category of payload.categories) {
+      assert.equal(category.status, 'catalogue');
+      assert.equal(typeof category.productCount, 'number');
+      assert.equal((await fetch(`${baseUrl}${category.image}`)).status, 200, category.image);
+      assert.match(category.imageAlt, /actual product may vary/);
+    }
+    const published = payload.categories.reduce((total, category) => total + category.productCount, 0);
+    assert.equal(published, (await (await fetch(`${baseUrl}/api/catalog`)).json()).count);
+  });
+});
+test('exposes verified contact details and only https social links', async () => {
+  await withServer({}, async (baseUrl) => {
+    const site = await (await fetch(`${baseUrl}/api/site`)).json();
+    assert.equal(site.email, 'arsconvalves@gmail.com');
+    assert.equal(site.phone, '+971 56 994 1333');
+    assert.match(site.address, /Sharjah/);
+    assert.ok(Array.isArray(site.social));
+    for (const item of site.social) assert.match(item.url, /^https:\/\//);
+  });
+});
+
+test('serves product photos referenced by the catalogue', async () => {
+  const products = require('../src/catalog.json').products;
+  await withServer({}, async (baseUrl) => {
+    const payload = await (await fetch(`${baseUrl}/api/catalog`)).json();
+    assert.equal(payload.count, products.length);
+    for (const product of payload.products) {
+      const response = await fetch(`${baseUrl}${product.image}`);
+      assert.equal(response.status, 200, product.image);
+      assert.match(response.headers.get('content-type'), /image\/webp/);
+    }
   });
 });

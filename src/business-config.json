@@ -1,16 +1,43 @@
 {
   "name": "ARSCON",
-  "legalName": null,
-  "location": "Dubai, United Arab Emirates",
-  "website": null,
-  "email": null,
-  "phone": null,
-  "postalAddress": null,
+  "legalName": "ARSCON Valves Co. L.L.C",
+  "location": "Sharjah, United Arab Emirates",
+  "website": "https://www.arsconvalves.com",
+  "email": "arsconvalves@gmail.com",
+  "phone": "+971 56 994 1333",
+  "postalAddress": "Warehouse 2, Next to Al Haaj Ismaiel Al Buraimy Circle, Ind. Area 6, Sharjah, UAE",
   "logo": "/images/arscon-mark.svg",
   "verifiedCertifications": [],
   "verifiedManufacturers": [],
   "verifiedIndustries": [],
   "verifiedProducts": [],
   "privacyPolicyReviewed": false,
-  "lastReviewed": null
+  "lastReviewed": null,
+  "legalNameArabic": "شركة ارسكون للصمامات ذ.م.م",
+  "social": [
+    {
+      "platform": "LinkedIn",
+      "url": null
+    },
+    {
+      "platform": "Facebook",
+      "url": null
+    },
+    {
+      "platform": "Instagram",
+      "url": null
+    },
+    {
+      "platform": "X",
+      "url": null
+    },
+    {
+      "platform": "YouTube",
+      "url": null
+    },
+    {
+      "platform": "WhatsApp",
+      "url": null
+    }
+  ]
 }

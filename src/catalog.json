@@ -1,5 +1,266 @@
 {
   "currency": null,
-  "products": [],
-  "notice": "The ARSCON product catalogue has not yet been verified and approved for publication. There are no published products, specifications, prices, or stock levels."
+  "source": "ARSCON Product Catalogue (PDF supplied by the owner)",
+  "products": [
+    {
+      "id": "gate-valve",
+      "name": "Gate Valve",
+      "category": "Gate Valves",
+      "verified": true,
+      "summary": "Gate Valve as listed in the ARSCON Product Catalogue. Confirm full specifications and availability with ARSCON.",
+      "image": "/images/products/gate-valve.webp",
+      "imageAlt": "Catalogue photo of gate valve; actual product may vary.",
+      "specifications": {
+        "applicableStandards": "API 600 / 6D",
+        "material": "CI, CS, SS, AS, WCB, LCB, WC6, WC9",
+        "nominalSize": "25 mm to 1200 mm"
+      }
+    },
+    {
+      "id": "globe-valve",
+      "name": "Globe Valve",
+      "category": "Globe Valves",
+      "verified": true,
+      "summary": "Globe Valve as listed in the ARSCON Product Catalogue. Confirm full specifications and availability with ARSCON.",
+      "image": "/images/products/globe-valve.webp",
+      "imageAlt": "Catalogue photo of globe valve; actual product may vary.",
+      "specifications": {}
+    },
+    {
+      "id": "ball-valve-flanged",
+      "name": "Flanged Ball Valve",
+      "category": "Ball Valves",
+      "verified": true,
+      "summary": "Flanged Ball Valve as listed in the ARSCON Product Catalogue. Confirm full specifications and availability with ARSCON.",
+      "image": "/images/products/ball-valve-flanged.webp",
+      "imageAlt": "Catalogue photo of flanged ball valve; actual product may vary.",
+      "specifications": {
+        "applicableStandards": "API 6D, BS-5351, BS-5159, ISO 17292",
+        "nominalSize": "25 mm to 1200 mm"
+      }
+    },
+    {
+      "id": "ball-valve-3piece",
+      "name": "3-Piece Ball Valve",
+      "category": "Ball Valves",
+      "verified": true,
+      "summary": "3-Piece Ball Valve as listed in the ARSCON Product Catalogue. Confirm full specifications and availability with ARSCON.",
+      "image": "/images/products/ball-valve-3piece.webp",
+      "imageAlt": "Catalogue photo of 3-piece ball valve; actual product may vary.",
+      "specifications": {}
+    },
+    {
+      "id": "ball-valve-forged",
+      "name": "Forged Ball Valve",
+      "category": "Ball Valves",
+      "verified": true,
+      "summary": "Forged Ball Valve as listed in the ARSCON Product Catalogue. Confirm full specifications and availability with ARSCON.",
+      "image": "/images/products/ball-valve-forged.webp",
+      "imageAlt": "Catalogue photo of forged ball valve; actual product may vary.",
+      "specifications": {}
+    },
+    {
+      "id": "butterfly-valve-gear",
+      "name": "Gear Operated Butterfly Valve",
+      "category": "Butterfly Valves",
+      "verified": true,
+      "summary": "Gear Operated Butterfly Valve as listed in the ARSCON Product Catalogue. Confirm full specifications and availability with ARSCON.",
+      "image": "/images/products/butterfly-valve-gear.webp",
+      "imageAlt": "Catalogue photo of gear operated butterfly valve; actual product may vary.",
+      "specifications": {
+        "applicableStandards": "API 609, BS-5155, BS EN 593, AWWA C504, IS 13095",
+        "nominalSize": "40 mm to 2000 mm"
+      }
+    },
+    {
+      "id": "butterfly-valve-lever",
+      "name": "Lever Operated Butterfly Valve",
+      "category": "Butterfly Valves",
+      "verified": true,
+      "summary": "Lever Operated Butterfly Valve as listed in the ARSCON Product Catalogue. Confirm full specifications and availability with ARSCON.",
+      "image": "/images/products/butterfly-valve-lever.webp",
+      "imageAlt": "Catalogue photo of lever operated butterfly valve; actual product may vary.",
+      "specifications": {
+        "applicableStandards": "API 609, BS-5155, BS EN 593, AWWA C504, IS 13095",
+        "nominalSize": "40 mm to 2000 mm"
+      }
+    },
+    {
+      "id": "swing-check-valve",
+      "name": "Swing Check Valve",
+      "category": "Non-Return Valves",
+      "verified": true,
+      "summary": "Swing Check Valve as listed in the ARSCON Product Catalogue. Confirm full specifications and availability with ARSCON.",
+      "image": "/images/products/swing-check-valve.webp",
+      "imageAlt": "Catalogue photo of swing check valve; actual product may vary.",
+      "specifications": {
+        "applicableStandards": "BS 1868"
+      }
+    },
+    {
+      "id": "wafer-check-valve",
+      "name": "Wafer Non-Slam Check Valve",
+      "category": "Non-Return Valves",
+      "verified": true,
+      "summary": "Wafer Non-Slam Check Valve as listed in the ARSCON Product Catalogue. Confirm full specifications and availability with ARSCON.",
+      "image": "/images/products/wafer-check-valve.webp",
+      "imageAlt": "Catalogue photo of wafer non-slam check valve; actual product may vary.",
+      "specifications": {
+        "applicableStandards": "API 6D"
+      }
+    },
+    {
+      "id": "dual-plate-check-valve",
+      "name": "Dual Plate Check Valve",
+      "category": "Non-Return Valves",
+      "verified": true,
+      "summary": "Dual Plate Check Valve as listed in the ARSCON Product Catalogue. Confirm full specifications and availability with ARSCON.",
+      "image": "/images/products/dual-plate-check-valve.webp",
+      "imageAlt": "Catalogue photo of dual plate check valve; actual product may vary.",
+      "specifications": {
+        "applicableStandards": "API 594"
+      }
+    },
+    {
+      "id": "strainers",
+      "name": "Strainers",
+      "category": "Strainers",
+      "verified": true,
+      "summary": "Strainers as listed in the ARSCON Product Catalogue. Confirm full specifications and availability with ARSCON.",
+      "image": "/images/products/strainers.webp",
+      "imageAlt": "Catalogue photo of strainers; actual product may vary.",
+      "specifications": {}
+    },
+    {
+      "id": "fabricated-strainers",
+      "name": "Fabricated Strainers",
+      "category": "Strainers",
+      "verified": true,
+      "summary": "Fabricated Strainers as listed in the ARSCON Product Catalogue. Confirm full specifications and availability with ARSCON.",
+      "image": "/images/products/fabricated-strainers.webp",
+      "imageAlt": "Catalogue photo of fabricated strainers; actual product may vary.",
+      "specifications": {}
+    },
+    {
+      "id": "knife-edge-gate-valve",
+      "name": "Knife Edge Gate Valve",
+      "category": "Knife Edge Gate Valves",
+      "verified": true,
+      "summary": "Knife Edge Gate Valve as listed in the ARSCON Product Catalogue. Confirm full specifications and availability with ARSCON.",
+      "image": "/images/products/knife-edge-gate-valve.webp",
+      "imageAlt": "Catalogue photo of knife edge gate valve; actual product may vary.",
+      "specifications": {}
+    },
+    {
+      "id": "sluice-valve",
+      "name": "Sluice and Reflux Valves",
+      "category": "Sluice and Reflux Valves",
+      "verified": true,
+      "summary": "Sluice and Reflux Valves as listed in the ARSCON Product Catalogue. Confirm full specifications and availability with ARSCON.",
+      "image": "/images/products/sluice-valve.webp",
+      "imageAlt": "Catalogue photo of sluice and reflux valves; actual product may vary.",
+      "specifications": {}
+    },
+    {
+      "id": "diaphragm-valve",
+      "name": "Diaphragm Valve",
+      "category": "Diaphragm Valves",
+      "verified": true,
+      "summary": "Diaphragm Valve as listed in the ARSCON Product Catalogue. Confirm full specifications and availability with ARSCON.",
+      "image": "/images/products/diaphragm-valve.webp",
+      "imageAlt": "Catalogue photo of diaphragm valve; actual product may vary.",
+      "specifications": {}
+    },
+    {
+      "id": "safety-valve",
+      "name": "Safety Valve",
+      "category": "Safety Valves",
+      "verified": true,
+      "summary": "Safety Valve as listed in the ARSCON Product Catalogue. Confirm full specifications and availability with ARSCON.",
+      "image": "/images/products/safety-valve.webp",
+      "imageAlt": "Catalogue photo of safety valve; actual product may vary.",
+      "specifications": {}
+    },
+    {
+      "id": "forged-steel-valves",
+      "name": "Forged Steel Valves",
+      "category": "Forged Steel Valves",
+      "verified": true,
+      "summary": "Forged Steel Valves as listed in the ARSCON Product Catalogue. Confirm full specifications and availability with ARSCON.",
+      "image": "/images/products/forged-steel-valves.webp",
+      "imageAlt": "Catalogue photo of forged steel valves; actual product may vary.",
+      "specifications": {}
+    },
+    {
+      "id": "air-valve",
+      "name": "Air Valve",
+      "category": "Air Valves",
+      "verified": true,
+      "summary": "Air Valve as listed in the ARSCON Product Catalogue. Confirm full specifications and availability with ARSCON.",
+      "image": "/images/products/air-valve.webp",
+      "imageAlt": "Catalogue photo of air valve; actual product may vary.",
+      "specifications": {}
+    },
+    {
+      "id": "steam-trap",
+      "name": "Steam Trap",
+      "category": "Steam Traps",
+      "verified": true,
+      "summary": "Steam Trap as listed in the ARSCON Product Catalogue. Confirm full specifications and availability with ARSCON.",
+      "image": "/images/products/steam-trap.webp",
+      "imageAlt": "Catalogue photo of steam trap; actual product may vary.",
+      "specifications": {}
+    },
+    {
+      "id": "stainless-gunmetal-valves",
+      "name": "Stainless Steel and Gun Metal Valves",
+      "category": "Stainless Steel and Gun Metal Valves",
+      "verified": true,
+      "summary": "Stainless Steel and Gun Metal Valves as listed in the ARSCON Product Catalogue. Confirm full specifications and availability with ARSCON.",
+      "image": "/images/products/stainless-gunmetal-valves.webp",
+      "imageAlt": "Catalogue photo of stainless steel and gun metal valves; actual product may vary.",
+      "specifications": {}
+    },
+    {
+      "id": "pneumatic-ball-valve",
+      "name": "Pneumatic Ball Valve",
+      "category": "Pneumatic Ball Valves",
+      "verified": true,
+      "summary": "Pneumatic Ball Valve as listed in the ARSCON Product Catalogue. Confirm full specifications and availability with ARSCON.",
+      "image": "/images/products/pneumatic-ball-valve.webp",
+      "imageAlt": "Catalogue photo of pneumatic ball valve; actual product may vary.",
+      "specifications": {}
+    },
+    {
+      "id": "pneumatic-butterfly-valve",
+      "name": "Pneumatic Butterfly Valve",
+      "category": "Pneumatic Butterfly Valves",
+      "verified": true,
+      "summary": "Pneumatic Butterfly Valve as listed in the ARSCON Product Catalogue. Confirm full specifications and availability with ARSCON.",
+      "image": "/images/products/pneumatic-butterfly-valve.webp",
+      "imageAlt": "Catalogue photo of pneumatic butterfly valve; actual product may vary.",
+      "specifications": {}
+    },
+    {
+      "id": "pneumatic-accessories",
+      "name": "Pneumatic Accessories",
+      "category": "Pneumatic Accessories",
+      "verified": true,
+      "summary": "Pneumatic Accessories as listed in the ARSCON Product Catalogue. Confirm full specifications and availability with ARSCON.",
+      "image": "/images/products/pneumatic-accessories.webp",
+      "imageAlt": "Catalogue photo of pneumatic accessories; actual product may vary.",
+      "specifications": {}
+    },
+    {
+      "id": "flanges-fittings",
+      "name": "Flanges, Fittings and Accessories",
+      "category": "Flanges, Fittings and Accessories",
+      "verified": true,
+      "summary": "Flanges, Fittings and Accessories as listed in the ARSCON Product Catalogue. Confirm full specifications and availability with ARSCON.",
+      "image": "/images/products/flanges-fittings.webp",
+      "imageAlt": "Catalogue photo of flanges, fittings and accessories; actual product may vary.",
+      "specifications": {}
+    }
+  ],
+  "notice": "Product entries come from the ARSCON Product Catalogue. Prices and stock levels are not published; confirm specifications and availability with ARSCON."
 }

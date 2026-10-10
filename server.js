@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 const http = require('node:http');
 const fs = require('node:fs/promises');
@@ -9,6 +9,7 @@ const ROOT = __dirname;
 const PUBLIC_ROOT = path.join(ROOT, 'public');
 const DEFAULT_CATALOG = require('./src/catalog.json');
 const BUSINESS_CONFIG = require('./src/business-config.json');
+const DEFAULT_TAXONOMY = require('./src/taxonomy.json');
 const PORT = Number(process.env.PORT || 3000);
 const MAX_BODY_BYTES = 16 * 1024;
 const RATE_WINDOW_MS = 60_000;
@@ -21,6 +22,10 @@ const MIME_TYPES = {
   '.json': 'application/json; charset=utf-8',
   '.pdf': 'application/pdf',
   '.svg': 'image/svg+xml',
+  '.webp': 'image/webp',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
   '.txt': 'text/plain; charset=utf-8'
 };
 const REQUIREMENTS = [
@@ -224,6 +229,18 @@ function validateRequirements(data) {
   return { valid: Object.keys(errors).length === 0, errors, requirements };
 }
 
+function getSocialLinks() {
+  return (Array.isArray(BUSINESS_CONFIG.social) ? BUSINESS_CONFIG.social : []).flatMap((item) => {
+    if (!item || typeof item.platform !== 'string' || typeof item.url !== 'string') return [];
+    try {
+      const url = new URL(item.url);
+      return url.protocol === 'https:' ? [{ platform: item.platform.slice(0, 40), url: url.href }] : [];
+    } catch {
+      return [];
+    }
+  });
+}
+
 function getVerifiedProducts(catalog) {
   if (!Array.isArray(catalog.products)) return [];
   return catalog.products.flatMap((product) => {
@@ -252,6 +269,8 @@ function getVerifiedProducts(catalog) {
       name,
       category,
       summary: cleanText(product.summary || '', 1200) || '',
+      image: typeof product.image === 'string' && /^\/images\/products\/[\w.-]+\.(webp|png|jpe?g)$/i.test(product.image) ? product.image : '',
+      imageAlt: cleanText(product.imageAlt || '', 240) || '',
       specifications,
       datasheetUrl: typeof product.datasheetUrl === 'string' &&
         /^\/documents\/[\w.-]+\.pdf$/i.test(product.datasheetUrl)
@@ -283,7 +302,7 @@ function buildFallback(requirements, products) {
 }
 
 function normalizeSpecification(value) {
-  return value.trim().toLowerCase().replace(/\s+/g, ' ').replace(/µ/g, 'u').replace(/°/g, 'deg');
+  return value.trim().toLowerCase().replace(/\s+/g, ' ').replace(/Âµ/g, 'u').replace(/Â°/g, 'deg');
 }
 
 function getCompatibleVerifiedProducts(requirements, products) {
@@ -494,7 +513,7 @@ async function forwardRfq(rfq, environment) {
   return { configured: true };
 }
 
-function createServer({ environment = process.env, catalog = DEFAULT_CATALOG, rateLimiter = createRateLimiter() } = {}) {
+function createServer({ environment = process.env, catalog = DEFAULT_CATALOG, taxonomy = DEFAULT_TAXONOMY, rateLimiter = createRateLimiter() } = {}) {
   const server = http.createServer(async (request, response) => {
     let requestUrl;
     try {
@@ -522,6 +541,18 @@ function createServer({ environment = process.env, catalog = DEFAULT_CATALOG, ra
         .map(({ relatedProductIds, ...item }) => item);
       const { relatedProductIds, ...details } = product;
       sendJson(response, 200, { product: details, relatedProducts });
+      return;
+    }
+
+    if (request.method === 'GET' && requestUrl.pathname === '/api/categories') {
+      const products = getVerifiedProducts(catalog);
+      sendJson(response, 200, {
+        notice: taxonomy.notice,
+        categories: taxonomy.categories.map((category) => ({
+          ...category,
+          productCount: products.filter((product) => product.category === category.name).length
+        }))
+      });
       return;
     }
 
@@ -558,7 +589,14 @@ function createServer({ environment = process.env, catalog = DEFAULT_CATALOG, ra
       siteUrl = getPublicSiteUrl(environment);
       sendJson(response, 200, {
         name: BUSINESS_CONFIG.name,
+        legalName: BUSINESS_CONFIG.legalName,
+        legalNameArabic: BUSINESS_CONFIG.legalNameArabic,
         location: BUSINESS_CONFIG.location,
+        publicWebsite: BUSINESS_CONFIG.website,
+        email: BUSINESS_CONFIG.email,
+        phone: BUSINESS_CONFIG.phone,
+        address: BUSINESS_CONFIG.postalAddress,
+        social: getSocialLinks(),
         website: siteUrl
       });
       return;
@@ -655,12 +693,13 @@ function createServer({ environment = process.env, catalog = DEFAULT_CATALOG, ra
       siteUrl = getPublicSiteUrl(environment);
       const pages = [
         '/', '/products.html', '/industries.html', '/solutions.html', '/resources.html',
-        '/about.html', '/assistant.html', '/quote.html', '/privacy.html', '/cookies.html'
+        '/about.html', '/contact.html', '/assistant.html', '/quote.html', '/privacy.html', '/cookies.html'
       ];
+      const categoryPages = taxonomy.categories.map((category) => `/category.html?slug=${encodeURIComponent(category.slug)}`);
       const productPages = getVerifiedProducts(catalog)
         .map((product) => `/product.html?id=${encodeURIComponent(product.id)}`);
       const entries = siteUrl
-        ? [...pages, ...productPages].map((page) => `  <url><loc>${siteUrl}${page.replace(/&/g, '&amp;')}</loc></url>`).join('\n')
+        ? [...pages, ...categoryPages, ...productPages].map((page) => `  <url><loc>${siteUrl}${page.replace(/&/g, '&amp;')}</loc></url>`).join('\n')
         : '';
       setSecurityHeaders(response, 'application/xml; charset=utf-8');
       response.setHeader('Cache-Control', 'public, max-age=3600');
@@ -711,7 +750,7 @@ function createServer({ environment = process.env, catalog = DEFAULT_CATALOG, ra
 }
 
 if (require.main === module) {
-  createServer().listen(PORT, '0.0.0.0', () => {
+  createServer().listen(PORT, '::', () => {
     console.log(`ARSCON website listening on port ${PORT}.`);
   });
 }
@@ -727,3 +766,4 @@ module.exports = {
   validateRequirements,
   validateRfq
 };
+

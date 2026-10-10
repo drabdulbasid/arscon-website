@@ -1,0 +1,167 @@
+{
+  "notice": "Categories follow the headings of the ARSCON Product Catalogue. Confirm specifications, availability and pricing with ARSCON before ordering.",
+  "categories": [
+    {
+      "slug": "gate-valves",
+      "name": "Gate Valves",
+      "title": "Gate Valves",
+      "description": "Isolation valves listed in the ARSCON product catalogue.",
+      "image": "/images/products/gate-valve.webp",
+      "imageAlt": "Catalogue photo of gate valves; actual product may vary.",
+      "status": "catalogue"
+    },
+    {
+      "slug": "globe-valves",
+      "name": "Globe Valves",
+      "title": "Globe Valves",
+      "description": "Globe valves listed in the ARSCON product catalogue.",
+      "image": "/images/products/globe-valve.webp",
+      "imageAlt": "Catalogue photo of globe valves; actual product may vary.",
+      "status": "catalogue"
+    },
+    {
+      "slug": "ball-valves",
+      "name": "Ball Valves",
+      "title": "Ball Valves",
+      "description": "Flanged, 3-piece and forged ball valves from the ARSCON catalogue.",
+      "image": "/images/products/ball-valve-flanged.webp",
+      "imageAlt": "Catalogue photo of ball valves; actual product may vary.",
+      "status": "catalogue"
+    },
+    {
+      "slug": "butterfly-valves",
+      "name": "Butterfly Valves",
+      "title": "Butterfly Valves",
+      "description": "Gear and lever operated butterfly valves from the ARSCON catalogue.",
+      "image": "/images/products/butterfly-valve-gear.webp",
+      "imageAlt": "Catalogue photo of butterfly valves; actual product may vary.",
+      "status": "catalogue"
+    },
+    {
+      "slug": "non-return-valves",
+      "name": "Non-Return Valves",
+      "title": "Non-Return Valves",
+      "description": "Swing, wafer and dual plate check valves from the ARSCON catalogue.",
+      "image": "/images/products/swing-check-valve.webp",
+      "imageAlt": "Catalogue photo of non-return valves; actual product may vary.",
+      "status": "catalogue"
+    },
+    {
+      "slug": "strainers",
+      "name": "Strainers",
+      "title": "Strainers",
+      "description": "Strainers and fabricated strainers from the ARSCON catalogue.",
+      "image": "/images/products/strainers.webp",
+      "imageAlt": "Catalogue photo of strainers; actual product may vary.",
+      "status": "catalogue"
+    },
+    {
+      "slug": "knife-edge-gate-valves",
+      "name": "Knife Edge Gate Valves",
+      "title": "Knife Edge Gate Valves",
+      "description": "Knife edge gate valves from the ARSCON catalogue.",
+      "image": "/images/products/knife-edge-gate-valve.webp",
+      "imageAlt": "Catalogue photo of knife edge gate valves; actual product may vary.",
+      "status": "catalogue"
+    },
+    {
+      "slug": "sluice-and-reflux-valves",
+      "name": "Sluice and Reflux Valves",
+      "title": "Sluice and Reflux Valves",
+      "description": "Sluice and reflux valves from the ARSCON catalogue.",
+      "image": "/images/products/sluice-valve.webp",
+      "imageAlt": "Catalogue photo of sluice and reflux valves; actual product may vary.",
+      "status": "catalogue"
+    },
+    {
+      "slug": "diaphragm-valves",
+      "name": "Diaphragm Valves",
+      "title": "Diaphragm Valves",
+      "description": "Diaphragm valves from the ARSCON catalogue.",
+      "image": "/images/products/diaphragm-valve.webp",
+      "imageAlt": "Catalogue photo of diaphragm valves; actual product may vary.",
+      "status": "catalogue"
+    },
+    {
+      "slug": "safety-valves",
+      "name": "Safety Valves",
+      "title": "Safety Valves",
+      "description": "Safety valves from the ARSCON catalogue.",
+      "image": "/images/products/safety-valve.webp",
+      "imageAlt": "Catalogue photo of safety valves; actual product may vary.",
+      "status": "catalogue"
+    },
+    {
+      "slug": "forged-steel-valves",
+      "name": "Forged Steel Valves",
+      "title": "Forged Steel Valves",
+      "description": "Forged steel valves from the ARSCON catalogue.",
+      "image": "/images/products/forged-steel-valves.webp",
+      "imageAlt": "Catalogue photo of forged steel valves; actual product may vary.",
+      "status": "catalogue"
+    },
+    {
+      "slug": "air-valves",
+      "name": "Air Valves",
+      "title": "Air Valves",
+      "description": "Air valves from the ARSCON catalogue.",
+      "image": "/images/products/air-valve.webp",
+      "imageAlt": "Catalogue photo of air valves; actual product may vary.",
+      "status": "catalogue"
+    },
+    {
+      "slug": "steam-traps",
+      "name": "Steam Traps",
+      "title": "Steam Traps",
+      "description": "Steam traps from the ARSCON catalogue.",
+      "image": "/images/products/steam-trap.webp",
+      "imageAlt": "Catalogue photo of steam traps; actual product may vary.",
+      "status": "catalogue"
+    },
+    {
+      "slug": "stainless-steel-and-gun-metal-valves",
+      "name": "Stainless Steel and Gun Metal Valves",
+      "title": "Stainless Steel and Gun Metal Valves",
+      "description": "Stainless steel and gun metal valves from the ARSCON catalogue.",
+      "image": "/images/products/stainless-gunmetal-valves.webp",
+      "imageAlt": "Catalogue photo of stainless steel and gun metal valves; actual product may vary.",
+      "status": "catalogue"
+    },
+    {
+      "slug": "pneumatic-ball-valves",
+      "name": "Pneumatic Ball Valves",
+      "title": "Pneumatic Ball Valves",
+      "description": "Pneumatically actuated ball valves from the ARSCON catalogue.",
+      "image": "/images/products/pneumatic-ball-valve.webp",
+      "imageAlt": "Catalogue photo of pneumatic ball valves; actual product may vary.",
+      "status": "catalogue"
+    },
+    {
+      "slug": "pneumatic-butterfly-valves",
+      "name": "Pneumatic Butterfly Valves",
+      "title": "Pneumatic Butterfly Valves",
+      "description": "Pneumatically actuated butterfly valves from the ARSCON catalogue.",
+      "image": "/images/products/pneumatic-butterfly-valve.webp",
+      "imageAlt": "Catalogue photo of pneumatic butterfly valves; actual product may vary.",
+      "status": "catalogue"
+    },
+    {
+      "slug": "pneumatic-accessories",
+      "name": "Pneumatic Accessories",
+      "title": "Pneumatic Accessories",
+      "description": "Actuator accessories from the ARSCON catalogue.",
+      "image": "/images/products/pneumatic-accessories.webp",
+      "imageAlt": "Catalogue photo of pneumatic accessories; actual product may vary.",
+      "status": "catalogue"
+    },
+    {
+      "slug": "flanges-fittings-and-accessories",
+      "name": "Flanges, Fittings and Accessories",
+      "title": "Flanges, Fittings and Accessories",
+      "description": "Flanges, fittings and accessories from the ARSCON catalogue.",
+      "image": "/images/products/flanges-fittings.webp",
+      "imageAlt": "Catalogue photo of flanges, fittings and accessories; actual product may vary.",
+      "status": "catalogue"
+    }
+  ]
+}

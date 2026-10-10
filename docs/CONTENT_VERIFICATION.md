@@ -42,3 +42,20 @@ Unknown business facts are kept null or empty in `src/business-config.json`. Cus
 The assistant can shortlist only products with a separately recorded exact match for **every non-empty requirement** supplied by the visitor. A model name, product description, text similarity or partially matching rating is never proof of suitability. Any discrepancy, unknown value, unit mismatch, missing feature or unsupported compatibility excludes a record. Preliminary suggestions still require engineering validation and written availability confirmation.
 
 There is no non-technical editor or CMS. Use a business-owned, authenticated headless CMS with role-based permissions, review-before-publication, change history, approved asset upload and tested backup/restore if ongoing self-service editing is required. Until authorized and integrated, request technical review for edits to the JSON catalogue or website pages.
+
+
+## Stage 1 additions: category taxonomy and imagery
+
+ARSCON must confirm before launch:
+- Which of the 13 proposed categories in `src/taxonomy.json` it actually supplies, stocks or manufactures; remove or rename the rest. Every category is currently marked `pending-confirmation`.
+- That the generic category descriptions are acceptable to publish.
+- Approved business telephone, email and address for `/contact.html` and the footer (none are published).
+- Approved real product photography, with ownership or written permission, to replace the conceptual illustrations in `public/images/categories/`.
+- Per product: valve type, material, pressure class, size, connection, standards, certifications, datasheets, availability and pricing, supplied through `src/catalog.json` with `verified: true`. Nothing is displayed as stocked or specified until then.
+
+## Update: ARSCON Product Catalogue PDF
+- Taken from the PDF cover: legal name ARSCON Valves Co. L.L.C (Arabic: ???? ?????? ???????? ?.?.?), phone +971 56 994 1333, email arsconvalves@gmail.com, website www.arsconvalves.com, address Warehouse 2, Next to Al Haaj Ismaiel Al Buraimy Circle, Ind. Area 6, Sharjah, UAE. Owner to confirm.
+- The PDF address is in **Sharjah**; earlier copy said Dubai. Site copy now says UAE/Sharjah. Confirm whether a Dubai presence also exists.
+- Social media: the PDF lists no handles. Add HTTPS URLs to `social` in `src/business-config.json`; icons appear only for filled entries.
+- Catalogue entries (`src/catalog.json`) were transcribed from the PDF. Verify standards and sizes for gate, ball, butterfly and check valves; other entries carry no specifications.
+- Unclear PDF text not published: knife edge gate connection wording; forged steel pressure rating (cut off after 1500#).

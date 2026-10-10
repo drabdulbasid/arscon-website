@@ -48,3 +48,14 @@ The integrated browser could not load the reference site before its timeout. A p
 ## Tooling and reference limitations
 
 No external runtime, build, test, image or font dependencies are used. Claude Code was not installed in the environment, so no Claude skill was available for inspection. No unreviewed remote installer, image provider or machine translation was used. See `docs/CONTENT_VERIFICATION.md` and `docs/DEPLOYMENT.md` for launch blockers and operational requirements.
+
+
+## Stage 1 audit update
+
+Existing state before the redesign: working multi-page Node.js site, 18 passing tests, empty verified catalogue, no category taxonomy, single-link Products navigation, no category pages, no contact page.
+
+Reference review (matvalve.com): the public page is WordPress/Elementor. Fetching returned page metadata and an after-sales-support text excerpt only. Its homepage structure is treated as a broad pattern (product-led navigation, category grid, services, CTA). Its images, wording and branding are not used.
+
+Added in stage 1: Products mega-menu with 13 proposed categories, homepage category image grid, featured-products section with honest empty state, company introduction, reusable `/category.html?slug=` pages with empty states, `/contact.html` (no unverified contact details), `/api/categories`, category URLs in the sitemap.
+
+Known limitations: product imagery is original conceptual SVG artwork, not photography; no verified catalogue; no verified contact details; hero artwork unchanged; no Next.js migration; not deployed.

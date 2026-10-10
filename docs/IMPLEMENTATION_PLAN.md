@@ -27,3 +27,20 @@ All website pages, the responsive design system, structured server-side JSON fil
 ## Required production steps
 
 Before live launch, ARSCON must verify the business identity, content, business contacts, legal text, customer-data processing, real catalogue and manufacturer documents; review a future CMS or data-editing policy; and approve and test the receiving webhook and optional AI provider. Configure production hosting, HTTPS, monitoring, durable encrypted backups and a public domain. Live website deployment and DNS changes require separate authorization.
+
+
+## Premium redesign plan (reference-led, original identity)
+
+Reference: matvalve.com. Only its general structure (header with product menu, hero, product-category grid, featured products, industries, services, company introduction, quotation CTA, footer) informs this work. No text, logo, imagery or visual identity is copied. The public fetch tool returned only page metadata and one text excerpt, so layout inferences are broad and unverified at pixel level.
+
+Framework decision: the project stays on its existing dependency-free Node.js stack (static HTML, CSS, JavaScript and a JSON API). It is working and tested; a Next.js migration would rewrite working code and add dependencies. This is reversible: the JSON data files (`src/taxonomy.json`, `src/catalog.json`) are framework-independent and can be reused. Please confirm if you want a Next.js migration as a separate stage.
+
+| Stage | Scope | Status |
+| --- | --- | --- |
+| 1 | Audit, plan, category taxonomy data, 13 original category illustrations, header product menu, homepage categories grid, featured-products empty state, company intro, reusable category pages, contact page, sitemap entries, tests | Done |
+| 2 | Hero and section visual polish, industry/service pages, category filters once catalogue data exists | Pending |
+| 3 | Verified catalogue import, approved product photography, structured product data | Needs ARSCON data and image permissions |
+| 4 | Full QA pass, accessibility audit, performance review, production hosting | Pending; needs explicit approval to deploy |
+
+Stage 1 files created: `src/taxonomy.json`, `public/category.html`, `public/contact.html`, `public/images/categories/*.svg`, `docs/IMAGE_ASSET_REGISTER.md`.
+Stage 1 files modified: `server.js`, `public/js/site.js`, `public/css/site.css`, `public/index.html`, `public/products.html`, `test/server.test.js`, and the docs.

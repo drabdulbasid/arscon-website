@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 const navigation = [
   ['Home', '/'],
@@ -6,7 +6,8 @@ const navigation = [
   ['Industries', '/industries.html'],
   ['Solutions', '/solutions.html'],
   ['Resources', '/resources.html'],
-  ['About', '/about.html']
+  ['About', '/about.html'],
+  ['Contact', '/contact.html']
 ];
 const iconArrow = '<svg aria-hidden="true" viewBox="0 0 16 16" fill="none"><path d="M2 8h11m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const catalogueSelections = new Map();
@@ -33,22 +34,35 @@ function brandMarkup() {
   return '<a class="brand" href="/" aria-label="ARSCON home"><img src="/images/arscon-mark.svg" alt="" width="36" height="36"><span><span class="brand-name">ARSCON</span><span class="brand-note">Industrial flow control</span></span></a>';
 }
 
+let categoriesPromise;
+function getCategories() {
+  categoriesPromise ||= fetch('/api/categories', { headers: { Accept: 'application/json' } })
+    .then((response) => (response.ok ? response.json() : null))
+    .catch(() => null);
+  return categoriesPromise;
+}
+
 function renderHeader() {
   const header = document.querySelector('[data-site-header]');
   if (!header) return;
-  const links = navigation.map(([label, href]) =>
+  const isProducts = activePath === '/products.html' || activePath === '/category.html' || activePath === '/product.html';
+  const links = navigation.filter(([label]) => label !== 'Products').map(([label, href]) =>
     `<a href="${href}"${activePath === href ? ' aria-current="page"' : ''}>${label}</a>`
-  ).join('');
+  );
+  const dropdown = (`<div class="nav-dropdown"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="product-menu"${isProducts ? ' data-current="true"' : ''}>Products <svg aria-hidden="true" viewBox="0 0 12 12" fill="none"><path d="m2.5 4.5 3.5 3.5 3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="mega-menu" id="product-menu" hidden><div class="mega-head"><strong>Product categories</strong><a href="/products.html">All products ${iconArrow}</a></div><div class="mega-grid" data-category-links><a href="/products.html">Browse the catalogue</a></div><p class="mega-note">Proposed categories. Availability is confirmed only by ARSCON.</p></div></div>`);
+  const desktopLinks = [links[0], dropdown, ...links.slice(1)].join('');
+  const productsMobile = (`<a href="/products.html"${activePath === '/products.html' ? ' aria-current="page"' : ''}>Products</a><div class="mobile-categories" data-category-links-mobile></div>`);
+  const mobileLinks = [links[0], productsMobile, ...links.slice(1)].join('');
   header.className = 'site-header';
   header.innerHTML = `
     <div class="header-inner">
       ${brandMarkup()}
-      <nav class="desktop-nav" aria-label="Main navigation">${links}<a class="button header-cta" href="/quote.html">Request a quote ${iconArrow}</a></nav>
+      <nav class="desktop-nav" aria-label="Main navigation">${desktopLinks}<a class="button header-cta" href="/quote.html">Request a quote ${iconArrow}</a></nav>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation">
         <svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M3 6h14M3 10h14M3 14h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
       </button>
     </div>
-    <nav class="site-menu" id="mobile-menu" data-open="false" aria-label="Mobile navigation" inert>${links}<a class="button" href="/quote.html">Request a quote ${iconArrow}</a></nav>`;
+    <nav class="site-menu" id="mobile-menu" data-open="false" aria-label="Mobile navigation" inert>${mobileLinks}<a class="button" href="/quote.html">Request a quote ${iconArrow}</a></nav>`;
 
   const toggle = header.querySelector('.menu-toggle');
   const menu = header.querySelector('.site-menu');
@@ -67,8 +81,32 @@ function renderHeader() {
       menu.inert = true;
     }
   });
-}
 
+  const trigger = header.querySelector('.nav-trigger');
+  const mega = header.querySelector('.mega-menu');
+  const setMega = (open) => {
+    trigger.setAttribute('aria-expanded', String(open));
+    mega.hidden = !open;
+  };
+  trigger.addEventListener('click', () => setMega(mega.hidden));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !mega.hidden) { setMega(false); trigger.focus(); }
+  });
+  document.addEventListener('click', (event) => {
+    if (!mega.hidden && !event.target.closest('.nav-dropdown')) setMega(false);
+  });
+  mega.addEventListener('focusout', (event) => {
+    if (!mega.hidden && event.relatedTarget && !event.relatedTarget.closest('.nav-dropdown')) setMega(false);
+  });
+
+  getCategories().then((payload) => {
+    if (!payload) return;
+    const items = payload.categories.map((category) =>
+      `<a href="/category.html?slug=${encodeURIComponent(category.slug)}">${escapeHtml(category.name)}</a>`).join('');
+    header.querySelector('[data-category-links]').innerHTML = items;
+    header.querySelector('[data-category-links-mobile]').innerHTML = items;
+  });
+}
 function renderFooter() {
   const footer = document.querySelector('[data-site-footer]');
   if (!footer) return;
@@ -76,12 +114,12 @@ function renderFooter() {
   footer.innerHTML = `
     <div class="container">
       <div class="footer-grid">
-        <div class="footer-brand">${brandMarkup()}<p>Industrial valve enquiries, with product information and business details published only when verified.</p></div>
+        <div class="footer-brand">${brandMarkup()}<p>Industrial valves and flow-control products from Sharjah, UAE.</p><address class="footer-contact" data-footer-contact></address><ul class="social-list" data-footer-social hidden></ul></div>
         <div class="footer-col"><h2>Explore</h2><div class="footer-links"><a href="/products.html">Product catalogue</a><a href="/industries.html">Applications</a><a href="/solutions.html">Solutions</a><a href="/resources.html">Technical resources</a></div></div>
-        <div class="footer-col"><h2>ARSCON</h2><div class="footer-links"><a href="/about.html">About the business</a><a href="/quote.html">Request a quotation</a><a href="/assistant.html">Valve assistant</a></div></div>
+        <div class="footer-col"><h2>ARSCON</h2><div class="footer-links"><a href="/about.html">About the business</a><a href="/contact.html">Contact</a><a href="/quote.html">Request a quotation</a><a href="/assistant.html">Valve assistant</a></div></div>
         <div class="footer-col"><h2>Information</h2><div class="footer-links"><a href="/privacy.html">Privacy notice</a><a href="/cookies.html">Cookie details</a><button class="cookie-toggle" type="button" data-cookie-settings>Cookie preferences</button><a href="https://github.com/drabdulbasid/arscon-website" target="_blank" rel="noopener noreferrer">GitHub project ${iconArrow}</a></div></div>
       </div>
-      <div class="footer-bottom"><span>© <span data-year></span> ARSCON · Dubai, United Arab Emirates</span><span>Product specifications, pricing and availability require written confirmation.</span></div>
+      <div class="footer-bottom"><span>© <span data-year></span> ARSCON Valves Co. L.L.C · Sharjah, United Arab Emirates</span><span>Product specifications, pricing and availability require written confirmation.</span></div>
     </div>`;
   footer.insertAdjacentHTML('beforeend', `
     <div class="cookie-banner" data-cookie-banner hidden role="region" aria-label="Cookie preferences">
@@ -91,6 +129,7 @@ function renderFooter() {
       <button class="cookie-toggle" type="button" data-cookie-close>Close</button>
     </div>`);
   footer.querySelector('[data-year]').textContent = new Date().getFullYear();
+  loadContactDetails();
 }
 
 function renderBreadcrumbs() {
@@ -114,6 +153,11 @@ async function loadStructuredData() {
       const productId = new URLSearchParams(window.location.search).get('id');
       if (productId) canonicalUrl.searchParams.set('id', productId);
     }
+    if (window.location.pathname === '/category.html') {
+      const slug = new URLSearchParams(window.location.search).get('slug');
+      if (slug) canonicalUrl.searchParams.set('slug', slug);
+      await getCategories();
+    }
     const canonical = document.createElement('link');
     canonical.rel = 'canonical';
     canonical.href = canonicalUrl.href;
@@ -123,9 +167,14 @@ async function loadStructuredData() {
       '@type': 'Organization',
       name: business.name,
       url: business.website,
+      legalName: business.legalName || undefined,
+      email: business.email || undefined,
+      telephone: business.phone || undefined,
+      sameAs: business.social?.length ? business.social.map((item) => item.url) : undefined,
       address: {
         '@type': 'PostalAddress',
-        addressLocality: 'Dubai',
+        streetAddress: business.address || undefined,
+        addressLocality: 'Sharjah',
         addressCountry: 'AE'
       }
     };
@@ -281,7 +330,7 @@ function initProductDetails() {
       result.innerHTML = `
         <div class="split-grid">
           <div>
-            <div class="product-image"><img src="/images/valve-illustration.svg" width="900" height="760" alt="Conceptual illustration; not a photograph of ${escapeHtml(product.name)}."></div>
+            <div class="product-image"><img src="${escapeHtml(product.image || '/images/valve-illustration.svg')}" width="900" height="760" alt="${escapeHtml(product.image ? (product.imageAlt || product.name) : 'Conceptual illustration; not a photograph of ' + product.name + '.')}"></div>
             <p class="fine-print trust-top">Illustrative artwork only; not a photograph of this product.</p>
           </div>
           <div>
@@ -530,12 +579,160 @@ function initCookies() {
   });
 }
 
+function categoryHref(category) {
+  return `/category.html?slug=${encodeURIComponent(category.slug)}`;
+}
+
+function categoryCard(category) {
+  const count = category.productCount
+    ? `${category.productCount} verified ${category.productCount === 1 ? 'product' : 'products'}`
+    : 'Catalogue category';
+  return `<a class="media-card" href="${categoryHref(category)}">
+    <span class="media-card-image"><img src="${escapeHtml(category.image)}" width="480" height="340" loading="lazy" alt="${escapeHtml(category.imageAlt)}"></span>
+    <span class="media-card-body"><span class="media-card-tag">${escapeHtml(count)}</span><strong>${escapeHtml(category.name)}</strong><span class="media-card-text">${escapeHtml(category.description)}</span><span class="media-card-link">View category ${iconArrow}</span></span>
+  </a>`;
+}
+
+function productCard(product) {
+  return `<article class="card" data-catalog-product="${escapeHtml(product.id)}">
+    ${product.image ? `<span class="product-card-image"><img src="${escapeHtml(product.image)}" width="360" height="240" loading="lazy" alt="${escapeHtml(product.imageAlt || product.name)}"></span>` : ''}<span class="card-index">${escapeHtml(product.category)}</span>
+    <h3>${escapeHtml(product.name)}</h3>
+    <p>${escapeHtml(product.summary || 'Verified product reference. Confirm complete specifications, application suitability and commercial terms directly with ARSCON.')}</p>
+    <a class="text-link" href="/product.html?id=${encodeURIComponent(product.id)}">Product details ${iconArrow}</a>
+  </article>`;
+}
+
+function emptyCatalogueMarkup(heading, message) {
+  return `<div class="catalog-empty"><h3>${escapeHtml(heading)}</h3><p>${escapeHtml(message)}</p><a class="button" href="/quote.html">Describe your requirement ${iconArrow}</a></div>`;
+}
+
+function initCategoryGrids() {
+  const grids = document.querySelectorAll('[data-category-grid]');
+  if (!grids.length) return;
+  getCategories().then((payload) => {
+    grids.forEach((grid) => {
+      grid.innerHTML = payload
+        ? payload.categories.map(categoryCard).join('')
+        : '<div class="catalog-empty"><h3>Categories could not be loaded.</h3><p>Please refresh the page or use the catalogue link.</p><a class="button" href="/products.html">Open the catalogue</a></div>';
+    });
+  });
+}
+
+function initFeaturedProducts() {
+  const target = document.querySelector('[data-featured-products]');
+  if (!target) return;
+  fetch('/api/catalog?sort=name-asc', { headers: { Accept: 'application/json' } })
+    .then((response) => (response.ok ? response.json() : Promise.reject(new Error('unavailable'))))
+    .then((payload) => {
+      target.innerHTML = payload.products.length
+        ? `<div class="card-grid">${payload.products.slice(0, 3).map(productCard).join('')}</div>`
+        : emptyCatalogueMarkup('Featured products are not available yet.', 'ARSCON has not yet supplied approved product records, so no product is presented as available or specified.');
+    })
+    .catch(() => {
+      target.innerHTML = emptyCatalogueMarkup('Featured products could not be loaded.', 'Please try again shortly or contact ARSCON through the enquiry form.');
+    });
+}
+
+function initCategoryPage() {
+  const page = document.querySelector('[data-category-page]');
+  if (!page) return;
+  const slug = new URLSearchParams(window.location.search).get('slug') || '';
+  const hero = page.querySelector('[data-category-hero]');
+  const results = page.querySelector('[data-category-products]');
+  const others = page.querySelector('[data-category-others]');
+  getCategories().then((payload) => {
+    const category = payload?.categories.find((item) => item.slug === slug);
+    if (!payload || !category) {
+      hero.innerHTML = '<div class="container"><p class="eyebrow">Category not found</p><h1>This category is <span class="serif-accent">not available.</span></h1><p class="lead">Choose one of the product categories below.</p></div>';
+      results.innerHTML = '';
+      if (payload) others.innerHTML = payload.categories.map(categoryCard).join('');
+      return;
+    }
+    document.title = `${category.name} | ARSCON Industrial Valves`;
+    document.querySelector('meta[name="description"]')?.setAttribute('content', `${category.description} Product availability and specifications are published only after ARSCON verification.`);
+    page.dataset.pageName = category.name;
+    const crumbs = document.querySelector('[data-breadcrumbs]');
+    crumbs.className = 'container breadcrumb-wrap';
+    crumbs.innerHTML = `<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/products.html">Products</a><span aria-hidden="true">/</span><span aria-current="page">${escapeHtml(category.name)}</span></nav>`;
+    hero.innerHTML = `<div class="container category-hero-grid">
+      <div><p class="eyebrow">Product category</p><h1>${escapeHtml(category.title)}</h1><p class="lead">${escapeHtml(category.description)}</p>
+      <div class="hero-actions"><a class="button" href="/quote.html">Request a quotation ${iconArrow}</a><a class="button button-outline" href="/assistant.html">Check your specifications ${iconArrow}</a></div>
+      <p class="hero-note">Catalogue photos are illustrative; confirm specifications and availability with ARSCON.</p></div>
+      <div class="category-hero-image"><img src="${escapeHtml(category.image)}" width="480" height="340" alt="${escapeHtml(category.imageAlt)}"></div></div>`;
+    others.innerHTML = payload.categories.filter((item) => item.slug !== slug).map(categoryCard).join('');
+
+    const search = page.querySelector('[data-category-search]');
+    const input = search.querySelector('input[name="q"]');
+    const load = async () => {
+      const params = new URLSearchParams({ category: category.name, sort: 'name-asc' });
+      if (input.value.trim()) params.set('q', input.value.trim());
+      try {
+        const response = await fetch(`/api/catalog?${params}`, { headers: { Accept: 'application/json' } });
+        if (!response.ok) throw new Error('unavailable');
+        const catalogue = await response.json();
+        search.hidden = !catalogue.products.length && !input.value.trim();
+        results.innerHTML = catalogue.products.length
+          ? `<div class="card-grid">${catalogue.products.map(productCard).join('')}</div>`
+          : emptyCatalogueMarkup(input.value.trim() ? 'No verified products match your search.' : `No verified ${category.name.toLowerCase()} are published yet.`, 'Product records appear here only after ARSCON confirms and approves them. You can still describe your requirement for the team to review.');
+      } catch {
+        results.innerHTML = emptyCatalogueMarkup('Products could not be loaded.', 'Please try again shortly or use the enquiry form.');
+      }
+    };
+    search.addEventListener('submit', (event) => { event.preventDefault(); load(); });
+    load();
+  });
+}
+
+function initProductCategoryChips() {
+  const target = document.querySelector('[data-category-chips]');
+  if (!target) return;
+  getCategories().then((payload) => {
+    if (!payload) return;
+    target.innerHTML = payload.categories.map((category) => `<a class="chip" href="${categoryHref(category)}">${escapeHtml(category.name)}</a>`).join('');
+  });
+}
+
 renderHeader();
 renderFooter();
 renderBreadcrumbs();
+initCategoryPage();
 loadStructuredData();
+initCategoryGrids();
+initFeaturedProducts();
+initProductCategoryChips();
 initCatalogue();
 initProductDetails();
 initRfqForm();
 initAssistant();
 initCookies();
+
+function socialIcon(name) {
+  return escapeHtml(name.slice(0, 2).toUpperCase());
+}
+
+async function loadContactDetails() {
+  let site;
+  try {
+    const response = await fetch('/api/site', { headers: { Accept: 'application/json' } });
+    if (!response.ok) return;
+    site = await response.json();
+  } catch {
+    return;
+  }
+  const tel = site.phone ? site.phone.replace(/[^\d+]/g, '') : '';
+  const rows = [
+    site.phone && `<a href="tel:${escapeHtml(tel)}">${escapeHtml(site.phone)}</a>`,
+    site.email && `<a href="mailto:${escapeHtml(site.email)}">${escapeHtml(site.email)}</a>`,
+    site.publicWebsite && `<a href="${escapeHtml(site.publicWebsite)}" rel="noopener noreferrer">${escapeHtml(site.publicWebsite.replace(/^https?:\/\//, ''))}</a>`,
+    site.address && `<span>${escapeHtml(site.address)}</span>`
+  ].filter(Boolean);
+  const list = rows.map((row) => `<span class="contact-row">${row}</span>`).join('');
+  const footerContact = document.querySelector('[data-footer-contact]');
+  if (footerContact) footerContact.innerHTML = list;
+  const card = document.querySelector('[data-contact-details]');
+  if (card) card.innerHTML = `<h3>${escapeHtml(site.legalName || site.name)}</h3>${site.legalNameArabic ? `<p lang="ar" dir="rtl">${escapeHtml(site.legalNameArabic)}</p>` : ''}${list}`;
+  const links = (site.social || []).map((item) => `<li><a class="social-link" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" aria-label="ARSCON on ${escapeHtml(item.platform)}">${socialIcon(item.platform)}<span class="visually-hidden">${escapeHtml(item.platform)}</span></a></li>`).join('');
+  document.querySelectorAll('[data-footer-social], [data-social-list]').forEach((el) => { el.innerHTML = links; el.hidden = !links; });
+  const block = document.querySelector('[data-social-block]');
+  if (block) block.hidden = !links;
+}
