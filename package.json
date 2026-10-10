@@ -1,0 +1,15 @@
+{
+  "name": "arscon-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ARSCON's industrial valve website",
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server.js",
+    "dev": "node --watch --env-file-if-exists=.env server.js",
+    "test": "node --test",
+    "check": "node --check server.js && node --check public/js/site.js && npm test"
+  },
+  "engines": {
+    "node": ">=22.9"
+  }
+}

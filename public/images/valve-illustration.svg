@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 760" fill="none">
+  <defs>
+    <linearGradient id="steel" x1="145" y1="366" x2="752" y2="659" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#cbd2cb"/>
+      <stop offset=".22" stop-color="#747e78"/>
+      <stop offset=".47" stop-color="#f0eee7"/>
+      <stop offset=".68" stop-color="#737d77"/>
+      <stop offset="1" stop-color="#bac2ba"/>
+    </linearGradient>
+    <linearGradient id="neck" x1="386" y1="255" x2="523" y2="399" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f6f2e7"/>
+      <stop offset=".44" stop-color="#777f79"/>
+      <stop offset="1" stop-color="#bec4b9"/>
+    </linearGradient>
+    <linearGradient id="bronze" x1="378" y1="185" x2="544" y2="252" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#d9e5c4"/>
+      <stop offset=".5" stop-color="#87a083"/>
+      <stop offset="1" stop-color="#e1e7d4"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="matrix(0 340 -410 0 454 406)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#91a887" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#91a887" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="52" height="52" patternUnits="userSpaceOnUse">
+      <path d="M52 0H0v52" stroke="#cad2c9" stroke-opacity=".13"/>
+      <circle cx="1" cy="1" r="1" fill="#cad2c9" fill-opacity=".32"/>
+    </pattern>
+  </defs>
+  <path fill="url(#glow)" d="M28 22h844v716H28z"/>
+  <path fill="url(#grid)" d="M28 22h844v716H28z"/>
+  <g stroke="#cad2c9" stroke-opacity=".35">
+    <path d="M37 85h42m-21-21v42M802 666h42m-21-21v42"/>
+    <circle cx="58" cy="85" r="11"/><circle cx="823" cy="666" r="11"/>
+  </g>
+  <path d="M130 486h168m306 0h166v62H604v-31H296v31H130v-62Z" fill="url(#steel)" stroke="#e6e4dc" stroke-width="2"/>
+  <path d="M146 499h136v17H146zm474 0h132v17H620z" fill="#202c29"/>
+  <path d="M170 477v79m34-79v79m463-79v79m34-79v79" stroke="#353f3b" stroke-width="4"/>
+  <path d="M306 451c12-44 32-82 72-97l21-77h111l25 77c38 14 56 54 68 97 8 29-13 59-43 59H349c-31 0-51-30-43-59Z" fill="url(#steel)" stroke="#e1e3d9" stroke-width="2.5"/>
+  <path d="M386 315h135m-115-18h96" stroke="#3f4b43" stroke-opacity=".65" stroke-width="2"/>
+  <path d="M391 339h126M363 405h184" stroke="#f3f1e9" stroke-opacity=".65" stroke-width="2"/>
+  <path d="M423 271v-51h76v51m-95 24h115v19H404v-19Z" fill="url(#neck)" stroke="#e9e8e0" stroke-width="2"/>
+  <path d="M405 250h111v24H405z" fill="url(#bronze)" stroke="#dce6d1" stroke-width="2"/>
+  <path d="M443 219v-41m35 41v-41" stroke="#c6cec2" stroke-width="9"/>
+  <circle cx="460" cy="152" r="59" stroke="#ced7c7" stroke-width="12"/>
+  <circle cx="460" cy="152" r="33" stroke="#80947e" stroke-width="9"/>
+  <circle cx="460" cy="152" r="8" fill="#d7dfd1"/>
+  <path d="m460 93 0 59 42 41m-101-41h59m-42-42 42 42m42-42-42 42m-42 42 42-42" stroke="#9eaf98" stroke-width="5" stroke-linecap="round"/>
+  <path d="M460 219v-7" stroke="#e7ebdf" stroke-width="4"/>
+  <g fill="#dce4d5">
+    <circle cx="358" cy="470" r="5"/><circle cx="525" cy="470" r="5"/><circle cx="279" cy="516" r="4"/><circle cx="641" cy="516" r="4"/>
+  </g>
+  <g stroke="#c4d4be" stroke-width="1.5" stroke-dasharray="4 6">
+    <path d="M225 346h94l69 25"/><path d="M574 250h77l50-48"/><path d="M608 422h123l36 30"/>
+  </g>
+  <g fill="#d4e2ca" font-family="Arial, sans-serif" font-size="11" letter-spacing="2">
+    <text x="79" y="340">VALVE BODY</text>
+    <text x="669" y="194">HANDWHEEL</text>
+    <text x="750" y="473">FLANGED END</text>
+    <text x="83" y="691">TECHNICAL ILLUSTRATION — NOT A VERIFIED ARSCON PRODUCT</text>
+  </g>
+  <path d="M86 694h320" stroke="#b6d4ab" stroke-opacity=".7"/>
+</svg>
